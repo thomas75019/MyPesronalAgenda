@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Interview;
+use App\Form\InteviewType;
+use App\Repository\ApplicationRepository;
 use App\Repository\InterviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -57,6 +59,63 @@ class InterviewController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('interview_index');
+    }
+
+    /**
+     * @Route("/interview/create/{id_application}", name="create_interview")
+     *
+     * @param Request $request
+     * @param ApplicationRepository $repository
+     *
+     * @return \Symfony\Component\Form\FormInterface|RedirectResponse
+     */
+    public function createInterview(Request $request, ApplicationRepository $repository)
+    {
+        $interview = new Interview();
+        $form = $this->createForm(InteviewType::class, $interview);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $application_id = $request->get('id_application');
+            $application = $repository->find($application_id);
+
+            $interview->setApplication($application);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($interview);
+
+            return $this->redirectToRoute('view_one_interview', [
+                'id' => $application_id
+            ]);
+        }
+
+        return $form;
+    }
+
+    /**
+     * @Route("/update/interview/{id}", name="update_interview")
+     *
+     * @param Interview $interview
+     * @param Request $request
+     * @return \Symfony\Component\Form\FormInterface|RedirectResponse
+     */
+    public function updateInterview(Interview $interview, Request $request)
+    {
+        $form = $this->createForm(InteviewType::class, $interview);
+        $form->handleRequest($request);
+
+        if ($form->isValid() && $form->isSubmitted())
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('view_one_interview', [
+                'id' => $interview->getId()
+            ]);
+        }
+
+        return $form;
     }
 
 }
