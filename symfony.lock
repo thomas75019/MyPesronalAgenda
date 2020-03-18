@@ -266,6 +266,9 @@
     "symfony/yaml": {
         "version": "v5.0.5"
     },
+    "twig/twig": {
+        "version": "v3.0.3"
+    },
     "webimpress/safe-writer": {
         "version": "2.0.0"
     }
