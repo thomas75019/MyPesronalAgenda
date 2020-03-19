@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{  parent() }} - All Applications
+{% endblock %}
+
+{% block body %}
+    {% for interview in interviews %}
+        {{ application.notes }}
+        {{ application.date|date() }}
+    {% endfor %}
+{% endblock %}
