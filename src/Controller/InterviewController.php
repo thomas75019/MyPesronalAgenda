@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
 use App\Entity\Interview;
 use App\Form\InteviewType;
 use App\Repository\ApplicationRepository;
@@ -19,13 +20,15 @@ class InterviewController extends AbstractController
      *
      * @param InterviewRepository $repository
      *
-     * @return array $interviews
+     * @return Response
      */
     public function index(InterviewRepository $repository)
     {
         $interviews = $repository->findAll();
 
-        return $interviews;
+        return $this->render('interview/viewAll.html.twig', [
+            'interviews' => $interviews
+        ]);
     }
 
     /**
@@ -34,13 +37,15 @@ class InterviewController extends AbstractController
      * @param InterviewRepository $repository
      * @param integer $id
      *
-     * @return Interview $interview
+     * @return Response
      */
     public function viewOneInterview(InterviewRepository $repository, $id)
     {
         $interview = $repository->find($id);
 
-        return $interview;
+        return $this->render('interview/viewOne.html.twig', [
+            'interview' => $interview
+        ]);
     }
 
     /**
@@ -70,7 +75,7 @@ class InterviewController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function createInterview(Request $request, ApplicationRepository $repository)
+    public function createInterview(Request $request)
     {
         $interview = new Interview();
         $form = $this->createForm(InteviewType::class, $interview);
@@ -79,17 +84,15 @@ class InterviewController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $application_id = $request->get('id_application');
-            $application = $repository->find($application_id);
+            $application = $this->getDoctrine()->getRepository(Application::class)->find($application_id);
 
             $interview->setApplication($application);
-            $application->addInterview($interview);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($interview);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('view_one_interview', [
-                'id' => $application_id
-            ]);
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('interview/create.html.twig', [

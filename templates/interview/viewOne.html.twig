@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{  parent() }} - Interview of the {{ interview.date|date }}
+    {{  parent() }} - Interview of the {{ interview.date|date() }}
 {% endblock %}
 
 {% block body %}
