@@ -6,7 +6,6 @@ use App\Entity\Application;
 use App\Form\ApplicationType;
 use App\Repository\ApplicationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +20,9 @@ class ApplicationController extends AbstractController
      *
      * @return Response
      */
-    public function index() : Response
+    public function index(ApplicationRepository $repository) : Response
     {
-        $manager = $this->getDoctrine()->getManager()->getRepository(Application::class);
-        $applications = $manager->findAll();
+        $applications = $repository->findAll();
 
         return $this->render('application/viewAll.html.twig', [
             'applications' => $applications
@@ -102,15 +100,21 @@ class ApplicationController extends AbstractController
 
 
     /**
-     * @Route("update/application/{id}", name="update_application", methods={"GET","POST"})
+     * @Route("update/application/{id}",
+     *     name="update_application",
+     *     methods={"GET","POST"}
+     * )
      *
      * @param Request $request
-     * @param Application $application
+     * @param ApplicationRepository $repository
      *
      * @return Response|RedirectResponse
      */
-    public function updateApplication(Request $request, Application $application)
+    public function updateApplication(Request $request, ApplicationRepository $repository)
     {
+        $application_id = $request->get('id');
+        $application = $repository->find($application_id);
+
         $form = $this->createForm(ApplicationType::class, $application);
         $form->handleRequest($request);
 
@@ -123,7 +127,9 @@ class ApplicationController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        //To change to render with Twig
-        return $this->render('update_application', ['id' => $application->getId()]);
+
+        return $this->render('application/update.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
