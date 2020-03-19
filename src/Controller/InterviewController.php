@@ -71,7 +71,6 @@ class InterviewController extends AbstractController
      * @Route("/interview/create/{id_application}", name="create_interview")
      *
      * @param Request $request
-     * @param ApplicationRepository $repository
      *
      * @return Response|RedirectResponse
      */
@@ -105,14 +104,18 @@ class InterviewController extends AbstractController
      *
      * @param Interview $interview
      * @param Request $request
-     * @return \Symfony\Component\Form\FormInterface|RedirectResponse
+     *
+     * @return Response|RedirectResponse
      */
-    public function updateInterview(Interview $interview, Request $request)
+    public function updateInterview(InterviewRepository $repository, Request $request)
     {
+        $interview_id = $request->get('id');
+        $interview = $repository->find($interview_id);
+
         $form = $this->createForm(InteviewType::class, $interview);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
@@ -122,7 +125,9 @@ class InterviewController extends AbstractController
             ]);
         }
 
-        return $form;
+        return $this->render('interview/update.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
 }
