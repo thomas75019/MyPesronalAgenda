@@ -30,7 +30,7 @@ class ApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/application/{id}", name="view_one_application", methods={"GET"})
+     * @Route("/application/{id}", name="view_one_application", methods={"GET"}, requirements={"id"="\d+"})
      *
      * @param string $id
      * @param ApplicationRepository $repository
@@ -47,7 +47,7 @@ class ApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/delete/application/{id}", name="delete_one_application")
+     * @Route("/delete/application/{id}", name="delete_one_application", requirements={"id"="\d+"})
      *
      * @param integer $id
      * @param ApplicationRepository $repository
@@ -102,7 +102,8 @@ class ApplicationController extends AbstractController
     /**
      * @Route("update/application/{id}",
      *     name="update_application",
-     *     methods={"GET","POST"}
+     *     methods={"GET","POST"},
+     *     requirements={"id"="\d+"}
      * )
      *
      * @param Request $request
