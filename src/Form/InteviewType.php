@@ -21,18 +21,26 @@ class InteviewType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Type of interview',
-                'choice' => [
+                'choices' => [
                     'Technical tests' => 'Technical tests',
                     'General Interview' => 'General Interview',
                     'Technical Interview' => 'Technical Interview'
                 ]
             ])
             ->add('step', IntegerType::class, [
-                'label' => "Step"
+                'label' => "Step",
+                'attr' => [
+                    'min' => '1',
+                    'max' => '10'
+                ]
+
             ])
             ->add('done', ChoiceType::class, [
-                'Yes' => true,
-                'No' => false
+                'choices' => [
+                    'Yes' => true,
+                    'No' => false
+                ]
+
             ])
             ->add('Save', SubmitType::class)
         ;

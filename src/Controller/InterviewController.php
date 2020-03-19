@@ -9,6 +9,7 @@ use App\Repository\InterviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class InterviewController extends AbstractController
@@ -67,7 +68,7 @@ class InterviewController extends AbstractController
      * @param Request $request
      * @param ApplicationRepository $repository
      *
-     * @return \Symfony\Component\Form\FormInterface|RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function createInterview(Request $request, ApplicationRepository $repository)
     {
@@ -91,7 +92,9 @@ class InterviewController extends AbstractController
             ]);
         }
 
-        return $form;
+        return $this->render('interview/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
