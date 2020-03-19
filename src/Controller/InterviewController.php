@@ -102,7 +102,7 @@ class InterviewController extends AbstractController
     /**
      * @Route("/update/interview/{id}", name="update_interview")
      *
-     * @param Interview $interview
+     * @param InterviewRepository $repository
      * @param Request $request
      *
      * @return Response|RedirectResponse
