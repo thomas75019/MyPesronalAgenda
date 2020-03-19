@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Application;
 use App\Entity\Interview;
 use App\Form\InteviewType;
-use App\Repository\ApplicationRepository;
 use App\Repository\InterviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
