@@ -15,32 +15,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApplicationController extends AbstractController
 {
     /**
-     * @Route("/", name="dashboard")
+     * @Route("/", name="dashboard", methods={"GET"})
      *
      * @param ApplicationRepository $repository
      *
-     * @return JsonResponse
+     * @return Response
      */
-    public function index(ApplicationRepository $repository) : JsonResponse
+    public function index() : Response
     {
-        $applications = $repository->findAll();
+        $manager = $this->getDoctrine()->getManager()->getRepository(Application::class);
+        $applications = $manager->findAll();
 
-        return new JsonResponse($applications, 200);
+        return $this->render('application/viewAll.html.twig', [
+            'applications' => $applications
+        ]);
     }
 
     /**
-     * @Route("/applcations/{id}", name="view_one_application")
+     * @Route("/application/{id}", name="view_one_application", methods={"GET"})
      *
      * @param string $id
      * @param ApplicationRepository $repository
      *
      * @return Response
      */
-    public function viewOneApplication($id, ApplicationRepository $repository)
+    public function viewOneApplication($id, ApplicationRepository $repository, Request $request)
     {
         $application = $repository->find($id);
 
-        return new Response($application);
+        return $this->render('application/viewOne.html.twig', [
+            'application' => $application
+        ]);
     }
 
     /**
@@ -64,48 +69,52 @@ class ApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/application/new", name="new_application")
+     * @Route("new/application", name="new_application", methods={"GET","POST"})
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return Response|RedirectResponse
      */
-    public function createApplication(Request $request) : RedirectResponse
+    public function createApplication(Request $request)
     {
         $application = new Application();
 
         $form = $this->createForm(ApplicationType::class, $application);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($application);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Application created');
+
             return $this->redirectToRoute('dashboard');
         }
 
         //need to change to render the form
-        return $this->redirectToRoute('new_application');
+        return $this->render('application/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
     /**
-     * @Route("update/application/{id}", name="update_application")
+     * @Route("update/application/{id}", name="update_application", methods={"GET","POST"})
      *
      * @param Request $request
      * @param Application $application
      *
-     * @return RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function updateApplication(Request $request, Application $application)
     {
         $form = $this->createForm(ApplicationType::class, $application);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $this->getDoctrine()->getManager();
 
@@ -115,6 +124,6 @@ class ApplicationController extends AbstractController
         }
 
         //To change to render with Twig
-        return $this->redirectToRoute('update_application', ['id' => $application->getId()]);
+        return $this->render('update_application', ['id' => $application->getId()]);
     }
 }

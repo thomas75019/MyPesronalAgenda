@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{  parent() }} - Application for
+{% endblock %}
+
+{% block body %}
+    {{ application.notes }}
+
+{% endblock %}

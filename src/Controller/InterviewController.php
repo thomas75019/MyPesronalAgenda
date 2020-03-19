@@ -81,6 +81,7 @@ class InterviewController extends AbstractController
             $application = $repository->find($application_id);
 
             $interview->setApplication($application);
+            $application->addInterview($interview);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($interview);
