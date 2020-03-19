@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InterviewRepository")
@@ -18,6 +19,7 @@ class Interview
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date
      */
     private $date;
 
@@ -28,6 +30,12 @@ class Interview
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *    min = 1,
+     *    max = 10,
+     *    minMessage = "You must be at least on Step 1",
+     *    maxMessage = "You cannot be above 10 steps"
+     * )
      */
     private $step;
 
