@@ -30,7 +30,8 @@ class ApplicationType extends AbstractType
                 'label' => 'Position title'
             ])
             ->add('notes', TextareaType::class, [
-                'label' => 'More Informations'
+                'label' => 'More Informations',
+                'required' => false
             ])
             ->add('Save', SubmitType::class)
         ;

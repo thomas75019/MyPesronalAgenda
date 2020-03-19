@@ -19,7 +19,6 @@ class Interview
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\Date
      */
     private $date;
 
