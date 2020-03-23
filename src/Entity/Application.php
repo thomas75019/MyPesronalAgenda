@@ -27,7 +27,7 @@ class Application
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 0,
+     *      min = 1,
      *      max = 255,
      *      minMessage = "This field cannot be blank",
      *      maxMessage = "This cannot be longer than {{ limit }} characters",
@@ -38,7 +38,7 @@ class Application
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 0,
+     *      min = 1,
      *      max = 255,
      *      minMessage = "This field cannot be blank",
      *      maxMessage = "This field cannot be longer than {{ limit }} characters",
