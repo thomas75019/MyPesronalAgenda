@@ -37,7 +37,7 @@ class ApplicationController extends AbstractController
      *
      * @return Response
      */
-    public function viewOneApplication($id, ApplicationRepository $repository, Request $request)
+    public function viewOneApplication($id, ApplicationRepository $repository)
     {
         $application = $repository->find($id);
 
