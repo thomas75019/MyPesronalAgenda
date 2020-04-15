@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,16 +26,34 @@ class Application
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "This field cannot be blank",
+     *      maxMessage = "This cannot be longer than {{ limit }} characters",
+     * )
      */
     private $company_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "This field cannot be blank",
+     *      maxMessage = "This field cannot be longer than {{ limit }} characters",
+     * )
      */
     private $position_title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 0,
+     *      max = 300,
+     *      minMessage = "The notes be at least {{ limit }} characters long",
+     *      maxMessage = "The notes cannot be longer than {{ limit }} characters",
+     * )
      */
     private $notes;
 

@@ -13,11 +13,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InteviewType extends AbstractType
 {
+    private $date;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('date', DateType::class, [
-                'label' => 'Date of the Interview'
+                'label' => 'Date of the Interview',
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')+ 1),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Type of interview',

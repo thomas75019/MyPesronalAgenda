@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Application;
 use App\Entity\Interview;
 use App\Form\InteviewType;
-use App\Repository\ApplicationRepository;
 use App\Repository\InterviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,7 +31,7 @@ class InterviewController extends AbstractController
     }
 
     /**
-     * @Route("/interview/{id}", name="view_one_interview")
+     * @Route("/interview/{id}", name="view_one_interview", requirements={"id"="\d+"})
      *
      * @param InterviewRepository $repository
      * @param integer $id
@@ -49,7 +48,7 @@ class InterviewController extends AbstractController
     }
 
     /**
-     * @Route("/delete/interview/{id}", name="delete_interview")
+     * @Route("/delete/interview/{id}", name="delete_interview", requirements={"id"="\d+"})
      *
      * @param integer $id
      * @param InterviewRepository $repository
@@ -68,7 +67,7 @@ class InterviewController extends AbstractController
     }
 
     /**
-     * @Route("/interview/create/{id_application}", name="create_interview")
+     * @Route("/interview/create/{id_application}", name="create_interview", requirements={"id_application"="\d+"})
      *
      * @param Request $request
      *
@@ -100,7 +99,7 @@ class InterviewController extends AbstractController
     }
 
     /**
-     * @Route("/update/interview/{id}", name="update_interview")
+     * @Route("/update/interview/{id}", name="update_interview", requirements={"id"="\d+"})
      *
      * @param InterviewRepository $repository
      * @param Request $request

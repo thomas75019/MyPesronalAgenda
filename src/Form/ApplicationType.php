@@ -17,7 +17,11 @@ class ApplicationType extends AbstractType
     {
         $builder
             ->add('date', DateType::class, [
-                'label' => 'Application Date'
+                'label' => 'Application Date',
+                'widget' => 'choice',
+                'years' => range('2019', date('Y')+ 1),
+                'months' => range(1, 12),
+                'days' => range(1, 31),
             ])
             ->add('company_name', TextType::class, [
                 'label' => 'Company Name'
@@ -26,7 +30,8 @@ class ApplicationType extends AbstractType
                 'label' => 'Position title'
             ])
             ->add('notes', TextareaType::class, [
-                'label' => 'More Informations'
+                'label' => 'More Informations',
+                'required' => false
             ])
             ->add('Save', SubmitType::class)
         ;
