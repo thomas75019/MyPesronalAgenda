@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{  parent() }} - All Interviews
+{% endblock %}
+
+{% block body %}
+    {% for interview in interviews %}
+        {{ interview.step }}
+        {{ interview.date|date() }}
+    {% endfor %}
+{% endblock %}
