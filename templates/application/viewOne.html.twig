@@ -1,10 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{  parent() }} - Application for
+    {{  parent() }} - Application for {{ application.companyName }} - {{ application.PositionTitle }}
 {% endblock %}
 
 {% block body %}
-    {{ application.notes }}
-
+    <section>
+        <div class="container">
+            <h2 style="text-align: center; padding-top: 10%">Application for {{ application.companyName }} - {{ application.PositionTitle }}</h2>
+        </div>
+    </section>
+    <section style="margin-left: 65%">
+        <a href="#" class="btn btn-info">Update this Application</a>
+        <a href="#" class="btn btn-danger">Delete This application</a>
+    </section>
+    <section>
+        <p style="text-align: center; font-size: 40px; margin-top: 20px">
+            {{ application.notes }}
+        </p>
+        <br>
+        <p style="text-align: center; font-size: 40px; margin-top: 20px">
+            You have {{ application.interviews|length }} interview for this application
+            <br>
+            <a href="#" class="btn btn-primary">Add an interview</a>
+        </p>
+    </section>
 {% endblock %}
