@@ -2,8 +2,22 @@
 
 
 {% block body %}
+    <section class="page-section" id="application">
+        <div class="container">
+            <h2 style="text-align: center; padding-top: 10%">Applications</h2>
+        </div>
+    </section>
+    <div class="row">
     {% for application in applications %}
-        {{ application.notes }}
-        {{ application.date|date() }}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center">{{ application.companyName }} - {{ application.positionTitle }}</h5>
+                        <p class="card-text" style="text-align: center">{{ application.notes }}</p>
+                        <a href="{{ path('view_one_application', {id: application.id}) }}" class="btn btn-primary" style="margin: auto; display: block;">See More</a>
+                    </div>
+                </div>
+            </div>
     {% endfor %}
+    </div>
 {% endblock %}
