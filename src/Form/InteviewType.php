@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class InteviewType extends AbstractType
 {
@@ -23,12 +24,12 @@ class InteviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DateType::class, [
+            ->add('date', DateTimeType::class, [
                 'label' => 'Date of the Interview',
                 'widget' => 'choice',
                 'years' => range(date('Y'), date('Y')+ 1),
                 'months' => range(date('m'), 12),
-                'days' => range(date('d'), 31),
+                'days' => range(date('d'), 31)
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Type of interview',

@@ -8,9 +8,9 @@
     <section>
         <div class="container">
             <h2 style="text-align: center; padding-top: 10%">{{ interview.type }} for {{ interview.application.companyName }} - {{ interview.application.PositionTitle }}</h2>
+            <h4>Status: {% if interview.done == false %} to pass  <br> <a href="{{ path('set_done', {id: interview.id}) }}" class="btn btn-success" style="margin: auto; display: block;">Done</a> {% else %} Done {% endif %}</h4>
             <p style="text-align: center; font-size: 30px; margin-top: 20px">
                 {{ interview.step }} step <br>
-                <h4>Status: {% if interview.done == false %} to pass  <br> <a href="{{ path('set_done', {id: interview.id}) }}" class="btn btn-success" style="margin: auto; display: block;">Done</a> {% else %} Done {% endif %}</h4>
             </p>
         </div>
     </section>
