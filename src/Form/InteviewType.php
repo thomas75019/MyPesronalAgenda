@@ -14,13 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class InteviewType extends AbstractType
 {
-    private $date;
-
-    public function __construct()
-    {
-        $this->date = new \DateTime();
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
