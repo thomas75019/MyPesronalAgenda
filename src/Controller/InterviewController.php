@@ -128,7 +128,8 @@ class InterviewController extends AbstractController
         }
 
         return $this->render('interview/update.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'interview' => $interview
         ]);
     }
 

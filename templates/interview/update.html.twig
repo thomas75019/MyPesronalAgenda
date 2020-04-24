@@ -1,1 +1,14 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{  parent() }}- Create a new Interview
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <h2 style="text-align: center; padding-top: 10%">Update Interview for {{ interview.application.companyName }} - {{ interview.application.positionTitle }}</h2>
+        </div>
+    </section>
+    {{ form(form) }}
+{% endblock %}
