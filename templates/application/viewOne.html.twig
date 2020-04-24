@@ -24,5 +24,20 @@
             <br>
             <a href="{{ path('create_interview', {id_application: application.id}) }}" class="btn btn-primary">Add an interview</a>
         </p>
+        {% if application.interviews|length > 0 %}
+            <div class="row">
+                {% for interview in application.interviews %}
+                    <div class="col-sm-6">
+                        <div class="card" style="margin-bottom: 20px; margin-right: 10px; margin-left: 10px">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center">{{ interview.type }} the {{ interview.date|date }}</h5>
+                                <p class="card-text" style="text-align: center">{{ interview.type }}</p>
+                                <a href="{{ path('view_one_interview', {id: interview.id}) }}" class="btn btn-primary" style="margin: auto; display: block;">See More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}
