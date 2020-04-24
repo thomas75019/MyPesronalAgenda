@@ -11,8 +11,8 @@
         </div>
     </section>
     <section style="margin-left: 65%">
-        <a href="#" class="btn btn-info">Update this Application</a>
-        <a href="#" class="btn btn-danger">Delete This application</a>
+        <a href="{{ path('update_application', {id: application.id}) }}" class="btn btn-info">Update this Application</a>
+        <a href="{{ path('delete_one_application', {id: application.id}) }}" class="btn btn-danger">Delete This application</a>
     </section>
     <section>
         <p style="text-align: center; font-size: 40px; margin-top: 20px">
@@ -22,7 +22,7 @@
         <p style="text-align: center; font-size: 40px; margin-top: 20px">
             You have {{ application.interviews|length }} interview for this application
             <br>
-            <a href="#" class="btn btn-primary">Add an interview</a>
+            <a href="{{ path('create_interview', {id_application: application.id}) }}" class="btn btn-primary">Add an interview</a>
         </p>
     </section>
 {% endblock %}
