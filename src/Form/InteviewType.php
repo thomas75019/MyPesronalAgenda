@@ -42,8 +42,9 @@ class InteviewType extends AbstractType
                 'label' => "Step",
                 'attr' => [
                     'min' => '1',
-                    'max' => '10'
-                ]
+                    'max' => '10',
+                ],
+                'data' => 1
 
             ])
             ->add('done', ChoiceType::class, [
