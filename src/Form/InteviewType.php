@@ -49,9 +49,10 @@ class InteviewType extends AbstractType
             ])
             ->add('done', ChoiceType::class, [
                 'choices' => [
-                    'Yes' => true,
-                    'No' => false
-                ]
+                    'No' => false,
+                    'Yes' => true
+                ],
+
 
             ])
             ->add('Save', SubmitType::class)

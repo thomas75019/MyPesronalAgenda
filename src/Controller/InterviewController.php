@@ -129,4 +129,33 @@ class InterviewController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/done/{id}", name="set_done", requirements={"id"="\d+"})
+     *
+     * @param InterviewRepository $repository
+     * @param Request $request
+     *
+     * @return Response|RedirectResponse
+     */
+    public function setDone(InterviewRepository $repository, Request $request)
+    {
+        $interview = $repository->find($request->get('id'));
+
+        if ($interview->getDone() == false)
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $interview->setDone(true);
+
+            $manager->flush();
+
+            return $this->redirectToRoute('view_one_interview', [
+                'id' => $interview->getId()
+            ]);
+        }
+
+        return $this->redirectToRoute('view_one_interview', [
+            'id' => $interview->getId()
+        ]);
+    }
+
 }
