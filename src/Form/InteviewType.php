@@ -52,9 +52,7 @@ class InteviewType extends AbstractType
                 'choices' => [
                     'No' => false,
                     'Yes' => true
-                ],
-
-
+                ]
             ])
             ->add('Save', SubmitType::class)
         ;
