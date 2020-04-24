@@ -13,7 +13,5 @@
                 <h4>Status: {% if interview.done == false %} to pass  <br> <a href="{{ path('set_done', {id: interview.id}) }}" class="btn btn-success" style="margin: auto; display: block;">Done</a> {% else %} Done {% endif %}</h4>
             </p>
         </div>
-
     </section>
-    {{ interview.application.companyName }}
 {% endblock %}

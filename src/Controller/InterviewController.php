@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Application;
 use App\Entity\Interview;
 use App\Form\InteviewType;
+use App\Repository\ApplicationRepository;
 use App\Repository\InterviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -73,16 +74,17 @@ class InterviewController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function createInterview(Request $request)
+    public function createInterview(Request $request, ApplicationRepository $repository)
     {
         $interview = new Interview();
+        $application_id = $request->get('id_application');
+        $application = $this->getDoctrine()->getRepository(Application::class)->find($application_id);
+
         $form = $this->createForm(InteviewType::class, $interview);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $application_id = $request->get('id_application');
-            $application = $this->getDoctrine()->getRepository(Application::class)->find($application_id);
 
             $interview->setApplication($application);
 
@@ -94,7 +96,8 @@ class InterviewController extends AbstractController
         }
 
         return $this->render('interview/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'application' => $application
         ]);
     }
 
