@@ -133,4 +133,14 @@ class ApplicationController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/calendar", name="calendar", methods={"GET"})
+
+     * @return Response
+     */
+    public function Calendar()
+    {
+        return $this->render('calendar.html.twig');
+    }
 }

@@ -18,18 +18,10 @@ class CalendarSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onCalendarSetData(CalendarEvent $calendar, InterviewRepository $repository)
+    public function onCalendarSetData(CalendarEvent $calendar)
     {
 
-        $interviews = $repository->findAll();
-
-        foreach ($interviews as $interview)
-        {
-            $calendar->addEvent(new Event(
-                $interview->getType() . ' for ' . $interview->getApplication()->getCompanyName(),
-                $interview->getDate()
-            ));
-        }
+        $calendar->addEvent(new Event('test', new \DateTime()));
 
     }
 
