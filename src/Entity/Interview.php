@@ -19,7 +19,7 @@ class Interview
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      */
     private $date;
 

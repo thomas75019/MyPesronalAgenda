@@ -74,7 +74,7 @@ class InterviewController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function createInterview(Request $request, ApplicationRepository $repository)
+    public function createInterview(Request $request)
     {
         $interview = new Interview();
         $application_id = $request->get('id_application');
